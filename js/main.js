@@ -15,9 +15,20 @@ $(document).ready(function(){
                 }else{
                     $("#feedback_cnpj").html("");
                     $("#cnpj").removeClass("is-invalid").addClass("is-valid");
+                    
+                    /**
+                     * preenche o formulário com os dados de retorno
+                     *  */ 
 
+                    // identificação
                     $("#nome").val(data.nome);
                     $("#fantasia").val(data.fantasia);
+                    
+                    // contato
+                    $("#telefone").val(data.telefone);
+                    $("#email").val(data.email);
+
+                    // endereco
                     $("#logradouro").val(data.logradouro);
                     $("#complemento").val(data.complemento);
                     $("#bairro").val(data.bairro);
@@ -25,8 +36,30 @@ $(document).ready(function(){
                     $("#cep").val(data.cep);
                     $("#municipio").val(data.municipio);
                     $("#uf").val(data.uf);
-                    $("#email").val(data.email);
-                    $("#telefone").val(data.telefone);
+
+                    // atividade principal
+                    $("#cnae").val(data.atividade_principal[0].code);
+                    $("#atividade").val(data.atividade_principal[0].text);
+
+                    // atividade secundarias
+                    if(data.atividades_secundarias.length > 0){
+                        $.each(data.atividades_secundarias, function(i, s){
+                            var divAtividades = $("#divAtividades");
+
+                            var a = '<div class="col-md-3">';
+                            a += '<label for="cnae-sec['+ i +']">CNAE</label>';
+                            a += '<input type="text" class="form-control" id="cnae-sec['+ i +']" name="cnae-sec['+ i +']" value="'+ s.code +'">'
+                            a += '</div>';
+                            a += '<div class="col-md-9">';
+                            a += '<label for="atividades-secundarias['+ i +']">Atividade</label>';
+                            a += '<input type="text" class="form-control" id="atividades-secundarias['+ i +']" name="atividades-secundarias['+ i +']" value="'+ s.text +'">';
+                            a += '</div>';
+
+                            divAtividades.append(a);
+                        }); 
+                    }
+
+                    console.log(data);
                 }
             });            
         }else{
