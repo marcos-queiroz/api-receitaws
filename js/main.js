@@ -41,10 +41,13 @@ $(document).ready(function(){
                     $("#cnae").val(data.atividade_principal[0].code);
                     $("#atividade").val(data.atividade_principal[0].text);
 
+                    // remove o conteudo para preencher com novo
+                    $("#divAtividades").html("");
+
                     // atividade secundarias
                     if(data.atividades_secundarias.length > 0){
                         $.each(data.atividades_secundarias, function(i, s){
-                            var divAtividades = $("#divAtividades");
+                            var divAtividades = $("#divAtividades");                            
 
                             var a = '<div class="col-md-3">';
                             a += '<label for="cnae-sec['+ i +']">CNAE</label>';
